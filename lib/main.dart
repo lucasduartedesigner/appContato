@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'dart:html' if (dart.library.html) 'dart:html' as html;
 
 void main() {
   runApp(const MyApp());
@@ -62,13 +61,11 @@ class _ListaPageState extends State<ListaPage> {
       final dados = await FileService.exportData();
       if (dados != null) {
         if (kIsWeb) {
-          // Implementação para web
-          final blob = html.Blob([dados], 'application/json');
-          final url = html.Url.createObjectUrlFromBlob(blob);
-          final anchor = html.AnchorElement(href: url)
-            ..setAttribute('download', 'contatos.json')
-            ..click();
-          html.Url.revokeObjectUrl(url);
+          // Implementação para web será adicionada posteriormente se necessário
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text('Exportação na web não suportada ainda')),
+          );
         } else {
           // Implementação para dispositivos móveis
           final result = await FilePicker.platform.saveFile(
