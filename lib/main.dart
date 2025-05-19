@@ -10,7 +10,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:html' if (dart.library.html) 'dart:html' as html;
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'App de Contatos',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: ListaPage(),
+      home: const ListaPage(),
     );
   }
 }
@@ -99,17 +99,45 @@ class _ListaPageState extends State<ListaPage> {
       final result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['json'],
+        allowMultiple: false,
       );
 
-      if (result != null) {
-        final file = File(result.files.single.path!);
-        final dados = await file.readAsString();
+      if (result != null && result.files.isNotEmpty) {
+        final file = result.files.first;
 
-        // Validar se é um JSON válido
+        if (file.path == null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Não foi possível acessar o arquivo')),
+          );
+          return;
+        }
+
         try {
-          final jsonList = json.decode(dados) as List;
-          final contatosImportados =
-              jsonList.map((json) => Pessoa.fromJson(json)).toList();
+          final fileContent = await File(file.path!).readAsString();
+          final jsonList = json.decode(fileContent) as List;
+
+          // Validar se cada item do JSON tem os campos necessários
+          final contatosImportados = jsonList.map((json) {
+            if (json is! Map<String, dynamic>) {
+              throw FormatException('Formato de dados inválido');
+            }
+
+            // Verificar campos obrigatórios
+            final camposObrigatorios = [
+              'nome',
+              'telefone',
+              'email',
+              'senha',
+              'idade'
+            ];
+            for (final campo in camposObrigatorios) {
+              if (!json.containsKey(campo)) {
+                throw FormatException('Campo obrigatório ausente: $campo');
+              }
+            }
+
+            return Pessoa.fromJson(json);
+          }).toList();
 
           setState(() {
             contatos = contatosImportados;
@@ -119,9 +147,13 @@ class _ListaPageState extends State<ListaPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Dados importados com sucesso!')),
           );
+        } on FormatException catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Arquivo inválido: ${e.message}')),
+          );
         } catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Arquivo inválido!')),
+            SnackBar(content: Text('Erro ao processar arquivo: $e')),
           );
         }
       }

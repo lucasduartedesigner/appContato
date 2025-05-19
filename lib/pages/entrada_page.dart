@@ -50,7 +50,7 @@ class _EntradaPageState extends State<EntradaPage> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _salvarDados,
-              child: Text("Salvar"),
+              child: const Text("Salvar"),
             )
           ],
         ),

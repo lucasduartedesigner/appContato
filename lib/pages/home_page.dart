@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
       final resultado = await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => FormularioPage(),
+          builder: (_) => const FormularioPage(),
         ),
       );
 
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => _adicionarOuEditar(),
         tooltip: 'Adicionar novo contato',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
