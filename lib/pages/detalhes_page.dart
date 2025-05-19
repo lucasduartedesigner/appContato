@@ -3,7 +3,7 @@ import '../models/pessoa.dart';
 import '../services/storage_service.dart';
 
 class ResumoPage extends StatefulWidget {
-  const ResumoPage({Key? key}) : super(key: key);
+  const ResumoPage({super.key});
 
   @override
   _ResumoPageState createState() => _ResumoPageState();
@@ -49,22 +49,24 @@ class _ResumoPageState extends State<ResumoPage> {
 class DetalhesPage extends StatelessWidget {
   final Pessoa pessoa;
 
-  const DetalhesPage({required this.pessoa});
+  const DetalhesPage({super.key, required this.pessoa});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Detalhes do Contato')),
+      appBar: AppBar(title: const Text('Detalhes do Contato')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Nome: ${pessoa.nome}', style: TextStyle(fontSize: 18)),
-            Text('Email: ${pessoa.email}', style: TextStyle(fontSize: 18)),
+            Text('Nome: ${pessoa.nome}', style: const TextStyle(fontSize: 18)),
+            Text('Email: ${pessoa.email}',
+                style: const TextStyle(fontSize: 18)),
             Text('Telefone: ${pessoa.telefone}',
-                style: TextStyle(fontSize: 18)),
-            Text('Idade: ${pessoa.idade}', style: TextStyle(fontSize: 18)),
+                style: const TextStyle(fontSize: 18)),
+            Text('Idade: ${pessoa.idade}',
+                style: const TextStyle(fontSize: 18)),
           ],
         ),
       ),

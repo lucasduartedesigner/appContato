@@ -5,6 +5,8 @@ import 'formulario_page.dart';
 import 'detalhes_page.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -25,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _adicionarOuEditar({Pessoa? pessoa, int? index}) async {
+  void _adicionarOuEditar({Pessoa? pessoa}) async {
     if (pessoa != null) {
       Navigator.push(
         context,
@@ -53,7 +55,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Contatos")),
+      appBar: AppBar(title: const Text("Contatos")),
       body: ListView.builder(
         padding: const EdgeInsets.all(12),
         itemCount: pessoas.length,
@@ -64,7 +66,8 @@ class _HomePageState extends State<HomePage> {
             margin: const EdgeInsets.symmetric(vertical: 8),
             child: ListTile(
               title: Text(pessoa.nome,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold)),
               subtitle: Text(pessoa.email),
               onTap: () => _adicionarOuEditar(pessoa: pessoa),
             ),
@@ -73,8 +76,8 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _adicionarOuEditar(),
-        child: Icon(Icons.add),
         tooltip: 'Adicionar novo contato',
+        child: Icon(Icons.add),
       ),
     );
   }

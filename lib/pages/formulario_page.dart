@@ -4,7 +4,7 @@ import '../models/pessoa.dart';
 class FormularioPage extends StatefulWidget {
   final Pessoa? pessoa;
 
-  FormularioPage({this.pessoa});
+  const FormularioPage({super.key, this.pessoa});
 
   @override
   _FormularioPageState createState() => _FormularioPageState();
@@ -57,36 +57,36 @@ class _FormularioPageState extends State<FormularioPage> {
             children: [
               TextFormField(
                 controller: _nomeController,
-                decoration: InputDecoration(labelText: "Nome"),
+                decoration: const InputDecoration(labelText: "Nome"),
                 validator: (value) => value!.isEmpty ? 'Informe o nome' : null,
               ),
               TextFormField(
                 controller: _telefoneController,
-                decoration: InputDecoration(labelText: "Telefone"),
+                decoration: const InputDecoration(labelText: "Telefone"),
                 validator: (value) =>
                     value!.isEmpty ? 'Informe o telefone' : null,
               ),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: "Email"),
+                decoration: const InputDecoration(labelText: "Email"),
                 validator: (value) => value!.isEmpty ? 'Informe o email' : null,
               ),
               TextFormField(
                 controller: _senhaController,
                 obscureText: true,
-                decoration: InputDecoration(labelText: "Senha"),
+                decoration: const InputDecoration(labelText: "Senha"),
                 validator: (value) => value!.isEmpty ? 'Informe a senha' : null,
               ),
               TextFormField(
                 controller: _idadeController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: "Idade"),
+                decoration: const InputDecoration(labelText: "Idade"),
                 validator: (value) => value!.isEmpty ? 'Informe a idade' : null,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _salvar,
-                child: Text("Salvar"),
+                child: const Text("Salvar"),
               )
             ],
           ),

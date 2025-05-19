@@ -3,6 +3,8 @@ import '../models/pessoa.dart';
 import '../services/storage_service.dart';
 
 class EntradaPage extends StatefulWidget {
+  const EntradaPage({super.key});
+
   @override
   _EntradaPageState createState() => _EntradaPageState();
 }
@@ -24,31 +26,31 @@ class _EntradaPageState extends State<EntradaPage> {
     idadeController.clear();
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Dados salvos com sucesso!")),
+      const SnackBar(content: Text("Dados salvos com sucesso!")),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Entrada de Dados")),
+      appBar: AppBar(title: const Text("Entrada de Dados")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: nomeController,
-              decoration: InputDecoration(labelText: "Nome"),
+              decoration: const InputDecoration(labelText: "Nome"),
             ),
             TextField(
               controller: idadeController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: "Idade"),
+              decoration: const InputDecoration(labelText: "Idade"),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
-              child: Text("Salvar"),
               onPressed: _salvarDados,
+              child: Text("Salvar"),
             )
           ],
         ),
